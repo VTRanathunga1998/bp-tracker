@@ -4,7 +4,7 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "BP Tracker",
-    short_name: "bp-tracker",
+    short_name: "SmartBP",
     description: "track your blood pressure and keep your health good",
     start_url: "/",
     display: "standalone",
