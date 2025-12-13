@@ -14,10 +14,10 @@ datasource db {
 }
 
 model Reading {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   systolic  Int
   diastolic Int
   pulse     Int?
-  notes     String?
-  createdAt DateTime @default(now())
+  weight    Float?    // ← add this line
+  createdAt DateTime  @default(now())
 }

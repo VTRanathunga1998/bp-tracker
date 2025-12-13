@@ -1,4 +1,3 @@
-// app/page.tsx
 "use client";
 
 import { format } from "date-fns";
@@ -167,17 +166,6 @@ export default function HomePage() {
           </svg>
           Notifications
         </button>
-      </div>
-
-      {/* Banner */}
-      <div className="mx-4 mt-6">
-        <div className="bg-gradient-to-b from-blue-100 to-blue-50 rounded-2xl h-40 overflow-hidden">
-          <img
-            src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80"
-            alt="Health"
-            className="w-full h-full object-cover opacity-70"
-          />
-        </div>
       </div>
 
       {/* Floating Save Button */}
