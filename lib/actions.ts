@@ -1,4 +1,3 @@
-// lib/actions.ts — now 100% correct for Prisma 6
 "use server";
 
 import prisma from "@/lib/prisma";
@@ -10,8 +9,8 @@ export async function addReading(formData: FormData) {
   const pulse = formData.get("pulse") ? Number(formData.get("pulse")) : null;
   const weight = formData.get("weight") ? Number(formData.get("weight")) : null;
 
-  if (!systolic || !diastolic) {
-    throw new Error("Systolic and Diastolic values are required");
+  if (!systolic || !diastolic || isNaN(systolic) || isNaN(diastolic)) {
+    throw new Error("Valid Systolic and Diastolic values are required");
   }
 
   await prisma.reading.create({
@@ -24,5 +23,4 @@ export async function addReading(formData: FormData) {
   });
 
   revalidatePath("/");
-  revalidatePath("/history");
 }

@@ -18,6 +18,6 @@ model Reading {
   systolic  Int
   diastolic Int
   pulse     Int?
-  weight    Float?    // ← add this line
+  weight    Float?    
   createdAt DateTime  @default(now())
 }
