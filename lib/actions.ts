@@ -33,11 +33,6 @@ export async function deleteReading(id: number) {
   revalidatePath("/");
 }
 
-export async function getAllReadings(): Promise<Reading[]> {
-  return await prisma.reading.findMany({
-    orderBy: { createdAt: "desc" },
-  });
-}
 
 export async function getLatestReadings(): Promise<Reading[]> {
   return await prisma.reading.findMany({

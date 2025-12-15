@@ -1,5 +1,5 @@
 // app/history/page.tsx
-export const dynamic = "force-dynamic"; // ← This disables all caching for this route
+export const dynamic = "force-dynamic"; 
 
 import prisma from "@/lib/prisma";
 import HistoryList from "@/components/HistoryList";

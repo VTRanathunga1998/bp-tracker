@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import ReadingCard from "./ReadingCard";
 import { getLatestReadings } from "@/lib/actions";
 
