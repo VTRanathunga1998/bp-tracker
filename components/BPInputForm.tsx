@@ -64,7 +64,7 @@ export default function BPInputForm({ initialWeight }: BPInputFormProps) {
         <div className="bg-white rounded-2xl shadow-lg p-6 relative">
           {/* Date & Time */}
           <div className="absolute top-4 right-4 text-right">
-            <div className="text-sm text-gray-500">
+            <div className="text-sm">
               {format(new Date(), "dd MMM yyyy")}, {format(new Date(), "HH:mm")}
             </div>
           </div>
@@ -89,7 +89,7 @@ export default function BPInputForm({ initialWeight }: BPInputFormProps) {
           {/* Input Fields */}
           <div className="grid grid-cols-2 gap-x-8 gap-y-6 mt-12">
             <div>
-              <div className="text-lg font-medium text-gray-600">SYS</div>
+              <div className="text-xl font-medium text-gray-700">SYS</div>
               <div className="text-xs text-gray-400">mmHg</div>
             </div>
             <input
@@ -101,7 +101,7 @@ export default function BPInputForm({ initialWeight }: BPInputFormProps) {
             />
 
             <div>
-              <div className="text-lg font-medium text-gray-600">DIA</div>
+              <div className="text-xl font-medium text-gray-700">DIA</div>
               <div className="text-xs text-gray-400">mmHg</div>
             </div>
             <input
@@ -113,7 +113,7 @@ export default function BPInputForm({ initialWeight }: BPInputFormProps) {
             />
 
             <div>
-              <div className="text-lg font-medium text-gray-600">PULSE</div>
+              <div className="text-xl font-medium text-gray-700">PULSE</div>
               <div className="text-xs text-gray-400">BPM</div>
             </div>
             <input
@@ -125,7 +125,7 @@ export default function BPInputForm({ initialWeight }: BPInputFormProps) {
             />
 
             <div>
-              <div className="text-lg font-medium text-gray-600">WEIGHT</div>
+              <div className="text-xl font-medium text-gray-700">WEIGHT</div>
               <div className="text-xs text-gray-400">kgs</div>
             </div>
             <input

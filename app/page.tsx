@@ -15,7 +15,7 @@ export default async function HomePage() {
   const latestWeight = await getLatestWeight();
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-32">
+    <div className="min-h-screen bg-cyan-50 pb-32">
       {/* Client Form with pre-filled weight */}
       <BPInputForm initialWeight={latestWeight ?? null} />
 

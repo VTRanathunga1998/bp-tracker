@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { Reading } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export async function addReading(formData: FormData) {
@@ -24,3 +25,17 @@ export async function addReading(formData: FormData) {
 
   revalidatePath("/");
 }
+
+export async function deleteReading(id: number) {
+  "use server";
+  await prisma.reading.delete({ where: { id } });
+  revalidatePath("/history");
+  revalidatePath("/");
+}
+
+export async function getAllReadings(): Promise<Reading[]> {
+  return await prisma.reading.findMany({
+    orderBy: { createdAt: "desc" },
+  });
+}
+
