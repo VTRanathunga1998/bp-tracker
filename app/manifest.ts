@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "track your blood pressure and keep your health good",
     start_url: "/",
     display: "standalone",
-    background_color: "#E0F7FA",
-    theme_color: "#E0F7FA",
+    background_color: "#5fe0f0ff",
+    theme_color: "#5fe0f0ff",
     orientation: "portrait-primary",
     icons: [
       {
