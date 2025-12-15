@@ -20,6 +20,7 @@ const armOptions = [
   "Left Leg",
   "Right Leg",
 ];
+
 const positionOptions = ["Standing", "Seated", "Horizontal"];
 
 const tagOptions = [
@@ -47,9 +48,15 @@ export default function EditReadingForm({
   const [weight, setWeight] = useState(
     reading.weight ? reading.weight.toFixed(1) : ""
   );
-  const [arm, setArm] = useState("Left Arm");
-  const [position, setPosition] = useState("Seated");
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  // Pre-fill existing values from DB
+  const [arm, setArm] = useState(reading.measurementSite || "Left Arm");
+  const [position, setPosition] = useState(
+    reading.measurementPosition || "Seated"
+  );
+  const [selectedTags, setSelectedTags] = useState<string[]>(
+    reading.tags ? reading.tags.split(", ").filter(Boolean) : []
+  );
 
   const pp = Number(systolic) - Number(diastolic);
   const map = Math.round(Number(diastolic) + pp / 3);
@@ -69,10 +76,10 @@ export default function EditReadingForm({
     if (pulse) formData.append("pulse", pulse);
     if (weight) formData.append("weight", weight);
 
-    // New fields
+    // Save new/updated fields
     formData.append("measurementSite", arm);
     formData.append("measurementPosition", position);
-    selectedTags.forEach((tag) => formData.append("tags", tag)); // multiple values
+    selectedTags.forEach((tag) => formData.append("tags", tag));
 
     await updateReading(formData);
     onClose();
