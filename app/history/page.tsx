@@ -1,16 +1,14 @@
 // app/history/page.tsx
+export const dynamic = "force-dynamic"; // ← This disables all caching for this route
+
 import prisma from "@/lib/prisma";
 import HistoryList from "@/components/HistoryList";
-import type { Reading } from "@prisma/client";
-
-async function getAllReadings(): Promise<Reading[]> {
-  return await prisma.reading.findMany({
-    orderBy: { createdAt: "desc" },
-  });
-}
 
 export default async function HistoryPage() {
-  const readings = await getAllReadings();
+  const readings = await prisma.reading.findMany({
+    orderBy: { createdAt: "desc" },
+  });
 
   return <HistoryList initialReadings={readings} />;
 }
+ 
