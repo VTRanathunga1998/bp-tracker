@@ -1,10 +1,12 @@
+// app/components/HistoryList.tsx
 "use client";
 
 import { useState } from "react";
 import ReadingCard from "./ReadingCard";
+import EditReadingForm from "./EditReadingForm";
 import { Trash2, Share2, CheckSquare, Square } from "lucide-react";
 import type { Reading } from "@prisma/client";
-import { deleteReading } from "@/lib/actions"; // make sure this exists
+import { deleteReading } from "@/lib/actions";
 
 interface HistoryListProps {
   initialReadings: Reading[];
@@ -12,6 +14,7 @@ interface HistoryListProps {
 
 export default function HistoryList({ initialReadings }: HistoryListProps) {
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [editingReading, setEditingReading] = useState<Reading | null>(null);
 
   const toggleSelect = (id: number) => {
     setSelectedIds((prev) => {
@@ -38,13 +41,22 @@ export default function HistoryList({ initialReadings }: HistoryListProps) {
         await deleteReading(id);
       }
       setSelectedIds(new Set());
-      // Page will refresh via revalidatePath in action
     }
   };
 
   const handleShare = () => {
     alert("Share feature coming soon!");
   };
+
+  // Show edit form if a reading is selected for editing
+  if (editingReading) {
+    return (
+      <EditReadingForm
+        reading={editingReading}
+        onClose={() => setEditingReading(null)}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 pb-32">
@@ -87,7 +99,7 @@ export default function HistoryList({ initialReadings }: HistoryListProps) {
             reading={reading}
             isSelected={selectedIds.has(reading.id)}
             onSelect={() => toggleSelect(reading.id)}
-            onClick={() => alert(`Edit reading ${reading.id} coming soon!`)}
+            onClick={() => setEditingReading(reading)} // Open edit form
           />
         ))}
       </div>

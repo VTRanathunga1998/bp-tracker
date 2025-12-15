@@ -9,7 +9,7 @@ interface ReadingCardProps {
   reading: Reading;
   isSelected?: boolean;
   onSelect?: () => void;
-  onClick?: () => void; // for opening edit form
+  onClick?: () => void;
 }
 
 export default function ReadingCard({
@@ -72,16 +72,18 @@ export default function ReadingCard({
         }`}
       >
         <div className="flex items-center gap-3">
-          <input
-            type="checkbox"
-            checked={isSelected}
-            onChange={(e) => e.stopPropagation()}
-            onClick={(e) => {
-              e.stopPropagation();
-              onSelect?.();
-            }}
-            className="w-5 h-5 rounded border-gray-400"
-          />
+          {onSelect && (
+            <input
+              type="checkbox"
+              checked={isSelected}
+              onChange={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                e.stopPropagation();
+                onSelect();
+              }}
+              className="w-5 h-5 rounded border-gray-400"
+            />
+          )}
           <span
             className={`text-sm font-medium ${
               isSelected ? "text-gray-300" : "text-gray-600"

@@ -14,10 +14,16 @@ datasource db {
 }
 
 model Reading {
-  id        Int       @id @default(autoincrement())
-  systolic  Int
-  diastolic Int
-  pulse     Int?
-  weight    Float?    
-  createdAt DateTime  @default(now())
+  id               Int      @id @default(autoincrement())
+  systolic         Int
+  diastolic        Int
+  pulse            Int?
+  weight           Float?
+
+  measurementSite  String?  // e.g., "Left Arm", "Right Wrist"
+  measurementPosition String? // e.g., "Seated", "Standing"
+  tags             String?  // Store as comma-separated string, e.g., "Before Breakfast,Low Salt Diet"
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt  // Optional: tracks when edited
 }

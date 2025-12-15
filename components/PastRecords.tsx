@@ -1,14 +1,5 @@
-// app/components/PastRecords.tsx
-import prisma from "@/lib/prisma";
-import type { Reading } from "@prisma/client";
 import ReadingCard from "./ReadingCard";
-
-async function getLatestReadings(): Promise<Reading[]> {
-  return await prisma.reading.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 3,
-  });
-}
+import { getLatestReadings } from "@/lib/actions";
 
 export default async function PastRecords() {
   const readings = await getLatestReadings();

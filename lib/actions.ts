@@ -39,3 +39,40 @@ export async function getAllReadings(): Promise<Reading[]> {
   });
 }
 
+export async function getLatestReadings(): Promise<Reading[]> {
+  return await prisma.reading.findMany({
+    orderBy: { createdAt: "desc" },
+    take: 3,
+  });
+}
+
+export async function updateReading(formData: FormData) {
+  const id = Number(formData.get("id"));
+  const systolic = Number(formData.get("systolic"));
+  const diastolic = Number(formData.get("diastolic"));
+  const pulse = formData.get("pulse") ? Number(formData.get("pulse")) : null;
+  const weight = formData.get("weight") ? Number(formData.get("weight")) : null;
+
+  // New fields from form
+  const measurementSite = formData.get("measurementSite") as string | null;
+  const measurementPosition = formData.get("measurementPosition") as
+    | string
+    | null;
+  const tags = formData.getAll("tags").join(", ") || null; // multi-select sends multiple
+
+  await prisma.reading.update({
+    where: { id },
+    data: {
+      systolic,
+      diastolic,
+      pulse,
+      weight,
+      measurementSite,
+      measurementPosition,
+      tags,
+    },
+  });
+
+  revalidatePath("/history");
+  revalidatePath("/");
+}
