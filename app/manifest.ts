@@ -3,15 +3,14 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "BP Tracker",
+    name: "SmartBP",
     short_name: "SmartBP",
     description: "track your blood pressure and keep your health good",
     start_url: "/",
     display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#eb0c0cff", // Your brand color
+    background_color: "#E0F7FA",
+    theme_color: "#E0F7FA",
     orientation: "portrait-primary",
-    // app/manifest.ts   ← ONLY CHANGE THESE LINES
     icons: [
       {
         src: "/web-app-manifest-192x192.png",
