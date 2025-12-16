@@ -59,8 +59,9 @@ export default function EditReadingForm({
   );
 
   // Editable Date & Time
-  const [date, setDate] = useState(format(reading.createdAt, "yyyy-MM-dd"));
-  const [time, setTime] = useState(format(reading.createdAt, "HH:mm"));
+  const localDate = new Date(reading.createdAt);
+  const [date, setDate] = useState(format(localDate, "yyyy-MM-dd"));
+  const [time, setTime] = useState(format(localDate, "HH:mm"));
 
   const pp = Number(systolic) - Number(diastolic);
   const map = Math.round(Number(diastolic) + pp / 3);

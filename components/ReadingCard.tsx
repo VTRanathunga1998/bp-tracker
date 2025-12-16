@@ -54,8 +54,9 @@ export default function ReadingCard({
   );
 
   const formatDateLabel = (utcDate: Date) => {
-    // date-fns automatically converts to local timezone when formatting
-    return format(utcDate, "EEE, dd MMM yyyy @ HH:mm");
+    const localDate = new Date(utcDate); // ← this one line only
+
+    return format(localDate, "EEE, dd MMM yyyy @ HH:mm");
   };
 
   return (
