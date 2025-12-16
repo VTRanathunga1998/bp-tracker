@@ -59,7 +59,12 @@ export default function EditReadingForm({
   );
 
   // Editable Date & Time
-  const localDate = new Date(reading.createdAt);
+  const localDate = new Date(
+    reading.createdAt.toLocaleString("en-US", {
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    })
+  );
+
   const [date, setDate] = useState(format(localDate, "yyyy-MM-dd"));
   const [time, setTime] = useState(format(localDate, "HH:mm"));
 
@@ -86,9 +91,8 @@ export default function EditReadingForm({
     formData.append("measurementPosition", position);
     selectedTags.forEach((tag) => formData.append("tags", tag));
 
-    // Send new date & time
-    const dateTimeString = `${date}T${time}:00`;
-    formData.append("dateTime", dateTimeString);
+    const selectedDateTime = new Date(`${date}T${time}`);
+    formData.append("dateTime", selectedDateTime.toISOString().slice(0, 19));
 
     await updateReading(formData);
     onClose();
