@@ -58,6 +58,10 @@ export default function EditReadingForm({
     reading.tags ? reading.tags.split(", ").filter(Boolean) : []
   );
 
+  // Editable Date & Time
+  const [date, setDate] = useState(format(reading.createdAt, "yyyy-MM-dd"));
+  const [time, setTime] = useState(format(reading.createdAt, "HH:mm"));
+
   const pp = Number(systolic) - Number(diastolic);
   const map = Math.round(Number(diastolic) + pp / 3);
   const bmi = reading.weight ? (reading.weight / (1.7 * 1.7)).toFixed(1) : "NA";
@@ -81,6 +85,10 @@ export default function EditReadingForm({
     formData.append("measurementPosition", position);
     selectedTags.forEach((tag) => formData.append("tags", tag));
 
+    // Send new date & time
+    const dateTimeString = `${date}T${time}:00`;
+    formData.append("dateTime", dateTimeString);
+
     await updateReading(formData);
     onClose();
   }
@@ -96,6 +104,28 @@ export default function EditReadingForm({
       </div>
 
       <div className="px-6 pt-6 pb-32">
+        {/* Editable Date & Time */}
+        <div className="grid grid-cols-2 gap-6 mb-8">
+          <div>
+            <label className="text-sm text-gray-600">Date</label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-full mt-1 text-xl font-medium border-b-2 border-gray-300 focus:border-blue-500 outline-none pb-1"
+            />
+          </div>
+          <div>
+            <label className="text-sm text-gray-600">Time</label>
+            <input
+              type="time"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              className="w-full mt-1 text-xl font-medium border-b-2 border-gray-300 focus:border-blue-500 outline-none pb-1"
+            />
+          </div>
+        </div>
+
         {/* SYS & DIA */}
         <div className="grid grid-cols-2 gap-6 mb-8">
           <div>
@@ -203,22 +233,6 @@ export default function EditReadingForm({
                 {tag}
               </button>
             ))}
-          </div>
-        </div>
-
-        {/* Date & Time (read-only) */}
-        <div className="grid grid-cols-2 gap-6 mb-8">
-          <div>
-            <label className="text-sm text-gray-600">Date</label>
-            <div className="text-xl font-medium mt-1">
-              {format(reading.createdAt, "dd MMM, yy")}
-            </div>
-          </div>
-          <div>
-            <label className="text-sm text-gray-600">Time</label>
-            <div className="text-xl font-medium mt-1">
-              {format(reading.createdAt, "HH:mm")}
-            </div>
           </div>
         </div>
 

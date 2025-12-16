@@ -9,6 +9,9 @@ export async function addReading(formData: FormData) {
   const diastolic = Number(formData.get("diastolic"));
   const pulse = formData.get("pulse") ? Number(formData.get("pulse")) : null;
   const weight = formData.get("weight") ? Number(formData.get("weight")) : null;
+  const dateTimeString = formData.get("dateTime") as string;
+
+  const createdAt = dateTimeString ? new Date(dateTimeString) : new Date();
 
   if (!systolic || !diastolic || isNaN(systolic) || isNaN(diastolic)) {
     throw new Error("Valid Systolic and Diastolic values are required");
@@ -20,6 +23,7 @@ export async function addReading(formData: FormData) {
       diastolic,
       pulse,
       weight,
+      createdAt,
     },
   });
 
@@ -32,7 +36,6 @@ export async function deleteReading(id: number) {
   revalidatePath("/history");
   revalidatePath("/");
 }
-
 
 export async function getLatestReadings(): Promise<Reading[]> {
   return await prisma.reading.findMany({
@@ -47,13 +50,14 @@ export async function updateReading(formData: FormData) {
   const diastolic = Number(formData.get("diastolic"));
   const pulse = formData.get("pulse") ? Number(formData.get("pulse")) : null;
   const weight = formData.get("weight") ? Number(formData.get("weight")) : null;
-
-  // New fields from form
   const measurementSite = formData.get("measurementSite") as string | null;
   const measurementPosition = formData.get("measurementPosition") as
     | string
     | null;
-  const tags = formData.getAll("tags").join(", ") || null; // multi-select sends multiple
+  const tags = formData.getAll("tags").join(", ") || null;
+  const dateTimeString = formData.get("dateTime") as string;
+
+  const createdAt = dateTimeString ? new Date(dateTimeString) : undefined;
 
   await prisma.reading.update({
     where: { id },
@@ -65,6 +69,7 @@ export async function updateReading(formData: FormData) {
       measurementSite,
       measurementPosition,
       tags,
+      ...(createdAt && { createdAt }), 
     },
   });
 

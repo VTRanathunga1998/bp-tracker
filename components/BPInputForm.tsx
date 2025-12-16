@@ -53,6 +53,10 @@ export default function BPInputForm({ initialWeight }: BPInputFormProps) {
     if (pulse) formData.append("pulse", pulse);
     if (weight) formData.append("weight", weight);
 
+    // Combine date and time into a proper timestamp
+    const dateTimeString = `${date}T${time}:00`;
+    formData.append("dateTime", dateTimeString);
+
     await addReading(formData);
 
     setSystolic("");
