@@ -53,9 +53,9 @@ export default function ReadingCard({
     reading.diastolic
   );
 
-  const formatDateLabel = (date: Date) => {
-    const d = new Date(date);
-    return format(d, "EEE, dd MMM yyyy @ HH:mm");
+  const formatDateLabel = (utcDate: Date) => {
+    // date-fns automatically converts to local timezone when formatting
+    return format(utcDate, "EEE, dd MMM yyyy @ HH:mm");
   };
 
   return (
