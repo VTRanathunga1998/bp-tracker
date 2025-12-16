@@ -54,7 +54,6 @@ export default function ReadingCard({
   );
 
   const formatDateLabel = (utcDate: Date) => {
-    // date-fns automatically displays in local timezone!
     return format(utcDate, "EEE, dd MMM yyyy @ HH:mm");
   };
 

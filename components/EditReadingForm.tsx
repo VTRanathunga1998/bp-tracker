@@ -58,6 +58,7 @@ export default function EditReadingForm({
     reading.tags ? reading.tags.split(", ").filter(Boolean) : []
   );
 
+  // Replace the whole localDate block with this
   const [date, setDate] = useState(format(reading.createdAt, "yyyy-MM-dd"));
   const [time, setTime] = useState(format(reading.createdAt, "HH:mm"));
 
@@ -78,19 +79,17 @@ export default function EditReadingForm({
     formData.append("diastolic", diastolic);
     if (pulse) formData.append("pulse", pulse);
     if (weight) formData.append("weight", weight);
-
-    // Save new/updated fields
     formData.append("measurementSite", arm);
     formData.append("measurementPosition", position);
     selectedTags.forEach((tag) => formData.append("tags", tag));
 
-    const selectedDateTime = new Date(`${date}T${time}`);
-    formData.append("dateTime", selectedDateTime.toISOString().slice(0, 19));
+    // ← THIS IS THE ONLY LINE YOU CHANGE
+    const localDateTime = new Date(`${date}T${time}`);
+    formData.append("dateTime", localDateTime.toISOString());
 
     await updateReading(formData);
     onClose();
   }
-
   return (
     <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
       {/* Header */}

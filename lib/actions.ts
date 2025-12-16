@@ -10,8 +10,7 @@ export async function addReading(formData: FormData) {
   const pulse = formData.get("pulse") ? Number(formData.get("pulse")) : null;
   const weight = formData.get("weight") ? Number(formData.get("weight")) : null;
   const dateTimeString = formData.get("dateTime") as string;
-
-  const createdAt = dateTimeString ? new Date(dateTimeString) : new Date();
+  const createdAt = new Date(dateTimeString); // This is now correct UTC
 
   if (!systolic || !diastolic || isNaN(systolic) || isNaN(diastolic)) {
     throw new Error("Valid Systolic and Diastolic values are required");
@@ -42,8 +41,7 @@ export async function updateReading(formData: FormData) {
     | null;
   const tags = formData.getAll("tags").join(", ") || null;
   const dateTimeString = formData.get("dateTime") as string;
-
-  const createdAt = dateTimeString ? new Date(dateTimeString) : undefined;
+  const createdAt = new Date(dateTimeString); // This is now correct UTC
 
   await prisma.reading.update({
     where: { id },
