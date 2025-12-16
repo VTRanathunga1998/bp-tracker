@@ -96,7 +96,7 @@ export default function EditReadingForm({
   return (
     <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
       {/* Header */}
-      <div className="sticky top-0 bg-white border-b border-gray-200 flex items-center px-4 py-3">
+      <div className="sticky top-0 bg-white border-b border-gray-200 shadow-sm flex items-center px-4 py-3 z-10">
         <button onClick={onClose} className="mr-4">
           <ArrowLeft size={28} />
         </button>
@@ -172,13 +172,13 @@ export default function EditReadingForm({
         </div>
 
         {/* Measurement Site */}
-        <div className="mb-8">
+        <div className="mb-10">
           <label className="text-sm text-gray-600">Measurement site</label>
           <div className="relative">
             <select
               value={arm}
               onChange={(e) => setArm(e.target.value)}
-              className="w-full mt-1 text-xl font-medium appearance-none bg-transparent border-b-2 border-gray-300 focus:border-blue-500 outline-none pb-2 pr-10"
+              className="w-full mt-2 text-xl font-medium appearance-none bg-transparent border-b-2 border-gray-300 focus:border-blue-500 outline-none pb-3 pr-12 transition-colors "
             >
               {armOptions.map((opt) => (
                 <option key={opt} value={opt}>
@@ -187,20 +187,20 @@ export default function EditReadingForm({
               ))}
             </select>
             <ChevronDown
-              className="absolute right-0 top-6 text-gray-400 pointer-events-none"
-              size={24}
+              className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+              size={28}
             />
           </div>
         </div>
 
         {/* Measurement Location */}
-        <div className="mb-8">
+        <div className="mb-10">
           <label className="text-sm text-gray-600">Measurement location</label>
           <div className="relative">
             <select
               value={position}
               onChange={(e) => setPosition(e.target.value)}
-              className="w-full mt-1 text-xl font-medium appearance-none bg-transparent border-b-2 border-gray-300 focus:border-blue-500 outline-none pb-2 pr-10"
+              className="w-full mt-2 text-xl font-medium appearance-none bg-transparent border-b-2 border-gray-300 focus:border-blue-500 outline-none pb-3 pr-12 transition-colors"
             >
               {positionOptions.map((opt) => (
                 <option key={opt} value={opt}>
@@ -209,8 +209,8 @@ export default function EditReadingForm({
               ))}
             </select>
             <ChevronDown
-              className="absolute right-0 top-6 text-gray-400 pointer-events-none"
-              size={24}
+              className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+              size={28}
             />
           </div>
         </div>
