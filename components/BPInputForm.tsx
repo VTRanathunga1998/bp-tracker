@@ -18,6 +18,10 @@ export default function BPInputForm({ initialWeight }: BPInputFormProps) {
     initialWeight != null ? initialWeight.toFixed(1) : ""
   );
 
+  const today = new Date();
+  const [date, setDate] = useState(format(today, "yyyy-MM-dd"));
+  const [time, setTime] = useState(format(today, "HH:mm"));
+
   const sys = Number(systolic) || 0;
   const dia = Number(diastolic) || 0;
   const pp = sys > 0 && dia > 0 ? sys - dia : 0;
@@ -63,27 +67,31 @@ export default function BPInputForm({ initialWeight }: BPInputFormProps) {
       <div className="mx-4 mt-6">
         <div className="bg-white rounded-2xl shadow-lg p-6 relative">
           {/* Date & Time */}
-          <div className="absolute top-4 right-4 text-right">
+          {/* <div className="absolute top-4 right-4 text-right">
             <div className="text-sm">
               {format(new Date(), "dd MMM yyyy")}, {format(new Date(), "HH:mm")}
             </div>
-          </div>
+          </div> */}
 
-          {/* Bell Icon */}
-          <div className="absolute top-5 left-5 text-gray-400">
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 00-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+          <div className="grid grid-cols-2 gap-6 mb-8">
+            <div>
+              <label className="text-sm text-gray-600">Date</label>
+              <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-full mt-1 text-xl font-medium border-b-2 border-gray-300 focus:border-blue-500 outline-none pb-1"
               />
-            </svg>
+            </div>
+            <div>
+              <label className="text-sm text-gray-600">Time</label>
+              <input
+                type="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                className="w-full mt-1 text-xl font-medium border-b-2 border-gray-300 focus:border-blue-500 outline-none pb-1"
+              />
+            </div>
           </div>
 
           {/* Input Fields */}
