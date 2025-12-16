@@ -30,20 +30,6 @@ export async function addReading(formData: FormData) {
   revalidatePath("/");
 }
 
-export async function deleteReading(id: number) {
-  "use server";
-  await prisma.reading.delete({ where: { id } });
-  revalidatePath("/history");
-  revalidatePath("/");
-}
-
-export async function getLatestReadings(): Promise<Reading[]> {
-  return await prisma.reading.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 3,
-  });
-}
-
 export async function updateReading(formData: FormData) {
   const id = Number(formData.get("id"));
   const systolic = Number(formData.get("systolic"));
@@ -69,10 +55,24 @@ export async function updateReading(formData: FormData) {
       measurementSite,
       measurementPosition,
       tags,
-      ...(createdAt && { createdAt }), 
+      ...(createdAt && { createdAt }),
     },
   });
 
   revalidatePath("/history");
   revalidatePath("/");
+}
+
+export async function deleteReading(id: number) {
+  "use server";
+  await prisma.reading.delete({ where: { id } });
+  revalidatePath("/history");
+  revalidatePath("/");
+}
+
+export async function getLatestReadings(): Promise<Reading[]> {
+  return await prisma.reading.findMany({
+    orderBy: { createdAt: "desc" },
+    take: 3,
+  });
 }

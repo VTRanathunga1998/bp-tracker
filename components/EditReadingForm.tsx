@@ -58,15 +58,8 @@ export default function EditReadingForm({
     reading.tags ? reading.tags.split(", ").filter(Boolean) : []
   );
 
-  // Editable Date & Time
-  const localDate = new Date(
-    reading.createdAt.toLocaleString("en-US", {
-      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    })
-  );
-
-  const [date, setDate] = useState(format(localDate, "yyyy-MM-dd"));
-  const [time, setTime] = useState(format(localDate, "HH:mm"));
+  const [date, setDate] = useState(format(reading.createdAt, "yyyy-MM-dd"));
+  const [time, setTime] = useState(format(reading.createdAt, "HH:mm"));
 
   const pp = Number(systolic) - Number(diastolic);
   const map = Math.round(Number(diastolic) + pp / 3);
