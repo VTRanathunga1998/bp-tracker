@@ -1,5 +1,5 @@
 // app/history/page.tsx
-export const dynamic = "force-dynamic"; 
+export const dynamic = "force-dynamic";
 
 import prisma from "@/lib/prisma";
 import HistoryList from "@/components/HistoryList";
@@ -11,4 +11,3 @@ export default async function HistoryPage() {
 
   return <HistoryList initialReadings={readings} />;
 }
- 
