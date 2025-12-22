@@ -16,7 +16,7 @@ export async function addReading(formData: FormData) {
     throw new Error("Valid Systolic and Diastolic values are required");
   }
 
-  await prisma.reading.create({
+  const newReading = await prisma.reading.create({
     data: {
       systolic,
       diastolic,
@@ -27,6 +27,9 @@ export async function addReading(formData: FormData) {
   });
 
   revalidatePath("/");
+  revalidatePath("/history");
+
+  return newReading;
 }
 
 export async function updateReading(formData: FormData) {

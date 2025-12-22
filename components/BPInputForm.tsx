@@ -4,6 +4,8 @@
 import { format } from "date-fns";
 import { useState } from "react";
 import { addReading } from "@/lib/actions";
+import { Reading } from "@prisma/client";
+import EditReadingForm from "./EditReadingForm";
 
 interface BPInputFormProps {
   initialWeight: number | null | undefined;
@@ -17,6 +19,8 @@ export default function BPInputForm({ initialWeight }: BPInputFormProps) {
   const [weight, setWeight] = useState(
     initialWeight != null ? initialWeight.toFixed(1) : ""
   );
+
+  const [editingReading, setEditingReading] = useState<Reading | null>(null);
 
   const today = new Date();
   const [date, setDate] = useState(format(today, "yyyy-MM-dd"));
@@ -57,11 +61,26 @@ export default function BPInputForm({ initialWeight }: BPInputFormProps) {
     const localDateTime = new Date(`${date}T${time}`);
     formData.append("dateTime", localDateTime.toISOString());
 
-    await addReading(formData);
+    // ← NEW: Save and get back the full reading with ID
+    const newReading = await addReading(formData);
 
+    // Open edit form with the fresh reading
+    setEditingReading(newReading);
+
+    // Clear basic fields (keep weight)
     setSystolic("");
     setDiastolic("");
     setPulse("");
+  }
+
+  // If editing, show full form
+  if (editingReading) {
+    return (
+      <EditReadingForm
+        reading={editingReading}
+        onClose={() => setEditingReading(null)}
+      />
+    );
   }
 
   return (
